@@ -45,8 +45,8 @@ require("../db/connections/mongoose");
 
 app.use(cors());
 app.use(cookieParser(env.passwordCookie));
-app.use(helmet());
-app.use(compression());
+app.use(helmet() as any);
+app.use(compression() as any);
 app.use(express.json());
 app.use(express.static(publicPath, { index: false }));
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -59,11 +59,7 @@ app.use(
 );
 // app.use(requestIp.mw());
 
-app.use(
-  busboy({
-    highWaterMark: 2 * 1024 * 1024,
-  })
-);
+app.use(busboy);
 
 app.use(userRouter, fileRouter, folderRouter);
 

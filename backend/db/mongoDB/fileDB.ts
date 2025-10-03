@@ -34,7 +34,7 @@ class DbUtil {
   };
 
   getQuickList = async (userID: string, limit: number) => {
-    let query: any = {
+    const query: any = {
       "metadata.owner": userID,
       "metadata.trashed": null,
       "metadata.processingFile": null,
@@ -357,7 +357,7 @@ class DbUtil {
           "metadata.parentList": newParentList,
         },
       },
-      { new: true }
+      { new: true } as any
     );
   };
 
