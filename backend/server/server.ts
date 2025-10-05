@@ -52,6 +52,10 @@ app.use(
 
 // ✅ pastikan preflight OPTIONS ditangani
 app.options("*", cors());
+app.use(cors({
+  origin: ["https://mydrive.layerapps.id"],
+  credentials: true
+}));
 
 app.use(cookieParser(env.passwordCookie));
 app.use(helmet() as any);
