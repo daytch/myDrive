@@ -71,7 +71,7 @@ app.use(
   })
 );
 
-app.use(busboy);
+app.use(busboy());
 
 app.use(userRouter, fileRouter, folderRouter);
 app.use(middlewareErrorHandler);
