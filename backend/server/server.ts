@@ -14,7 +14,6 @@ import cookieParser from "cookie-parser";
 import env from "../enviroment/env";
 import { middlewareErrorHandler } from "../middleware/utils/middleware-utils";
 import cors from "cors";
-// import requestIp from "request-ip";
 
 const app = express();
 const publicPath = path.join(__dirname, "..", "..", "dist-frontend");
@@ -23,19 +22,14 @@ let server: any;
 let serverHttps: any;
 
 if (process.env.SSL === "true") {
-  const certPath = env.httpsCrtPath || "certificate.crt"
-  const caPath = env.httpsCaPath || "certificate.ca-bundle"
-  const keyPath = env.httpsKeyPath || "certificate.key"
+  const certPath = env.httpsCrtPath || "certificate.crt";
+  const caPath = env.httpsCaPath || "certificate.ca-bundle";
+  const keyPath = env.httpsKeyPath || "certificate.key";
   const cert = fs.readFileSync(certPath);
   const ca = fs.readFileSync(caPath);
   const key = fs.readFileSync(keyPath);
 
-  const options = {
-    cert,
-    ca,
-    key,
-  };
-
+  const options = { cert, ca, key };
   serverHttps = https.createServer(options, app);
 }
 
@@ -43,7 +37,22 @@ server = http.createServer(app);
 
 require("../db/connections/mongoose");
 
-app.use(cors());
+// ✅ CORS config (penting)
+app.use(
+  cors({
+    origin: [
+      "https://mydrive.layerapps.id",
+      "http://localhost:3000", // dev optional
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
+// ✅ pastikan preflight OPTIONS ditangani
+app.options("*", cors());
+
 app.use(cookieParser(env.passwordCookie));
 app.use(helmet() as any);
 app.use(compression() as any);
@@ -57,17 +66,11 @@ app.use(
     parameterLimit: 50000,
   })
 );
-// app.use(requestIp.mw());
 
 app.use(busboy);
 
 app.use(userRouter, fileRouter, folderRouter);
-
 app.use(middlewareErrorHandler);
-
-//const nodeMode = process.env.NODE_ENV ? "Production" : "Development/Testing";
-
-//console.log("Node Enviroment Mode:", nodeMode);
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (_: Request, res: Response) => {
