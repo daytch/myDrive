@@ -10,7 +10,7 @@ const serverStart = async () => {
 
   console.log("ENV", process.env.NODE_ENV);
 
-  const httpPort = process.env.HTTP_PORT || process.env.PORT || 7011;
+  const httpPort = process.env.HTTP_PORT || process.env.PORT || 7001;
   const httpsPort = process.env.HTTPS_PORT || 7001
 
   if (process.env.NODE_ENV === "production" && process.env.SSL === "true") {
