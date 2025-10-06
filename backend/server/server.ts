@@ -7,7 +7,9 @@ import bodyParser from "body-parser";
 import https from "https";
 import fs from "fs";
 import helmet from "helmet";
-import busboy from "connect-busboy";
+// import busboy from "connect-busboy";
+import type { RequestHandler } from "express";
+import connectBusboy from "connect-busboy";
 import compression from "compression";
 import http from "http";
 import cookieParser from "cookie-parser";
@@ -58,8 +60,8 @@ app.use(cors({
 }));
 
 app.use(cookieParser(env.passwordCookie));
-app.use(helmet() as import("express").RequestHandler);
-app.use(compression() as import("express").RequestHandler);
+app.use(helmet() as RequestHandler);
+app.use(compression() as RequestHandler);
 app.use(express.json());
 app.use(express.static(publicPath, { index: false }));
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -71,7 +73,10 @@ app.use(
   })
 );
 
-app.use(busboy());
+// app.use(busboy());
+
+const busboyMiddleware: RequestHandler = connectBusboy();
+app.use(busboyMiddleware);
 
 app.use(userRouter, fileRouter, folderRouter);
 app.use(middlewareErrorHandler);
