@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import env from "../../enviroment/env";
 import fs from "fs";
 
+console.log("url :",env.mongoURL);
 const DBUrl = env.mongoURL as string;
 
 if (env.useDocumentDB === "true") {

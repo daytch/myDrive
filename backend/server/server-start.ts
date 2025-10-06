@@ -1,6 +1,5 @@
 import getEnvVariables from "../enviroment/get-env-variables";
 getEnvVariables();
-
 import getKey from "../key/get-key";
 import servers from "./server";
 
@@ -9,10 +8,10 @@ const { server, serverHttps } = servers;
 const serverStart = async () => {
   await getKey();
 
-  console.log("ENV:", process.env.NODE_ENV);
+  console.log("ENV", process.env.NODE_ENV);
 
   const httpPort = process.env.HTTP_PORT || process.env.PORT || 7001;
-  const httpsPort = process.env.HTTPS_PORT || 7443; // ubah sedikit biar beda port
+  const httpsPort = process.env.HTTPS_PORT || 7001; // ubah sedikit biar beda port
   const host = process.env.URL || "0.0.0.0"; // ✅ ini penting
 
   if (process.env.NODE_ENV === "production" && process.env.SSL === "true") {

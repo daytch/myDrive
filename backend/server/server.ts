@@ -58,8 +58,8 @@ app.use(cors({
 }));
 
 app.use(cookieParser(env.passwordCookie));
-app.use(helmet() as any);
-app.use(compression() as any);
+app.use(helmet() as import("express").RequestHandler);
+app.use(compression() as import("express").RequestHandler);
 app.use(express.json());
 app.use(express.static(publicPath, { index: false }));
 app.use(bodyParser.json({ limit: "50mb" }));
