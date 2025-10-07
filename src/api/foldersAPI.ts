@@ -17,7 +17,7 @@ export const getFoldersListAPI = async ({
   queryKey,
 }: QueryFunctionContext<[string, QueryKeyParams]>) => {
   const [_key, { parent, search, sortBy, limit, trashMode }] = queryKey;
-  const response = await axios.get(`/api/folder-service/list`, {
+  const response = await axios.get(`/folder-service/list`, {
     params: {
       parent,
       search,
@@ -34,7 +34,7 @@ export const getFolderInfoAPI = async ({
 }: QueryFunctionContext<[string, { id: string | undefined }]>) => {
   const [_key, { id }] = queryKey;
   if (!id) return undefined;
-  const response = await axios.get(`/api/folder-service/info/${id}`);
+  const response = await axios.get(`/folder-service/info/${id}`);
   return response.data;
 };
 
@@ -52,7 +52,7 @@ export const getMoveFolderListAPI = async ({
   ]
 >) => {
   const [_key, { parent, search, folderIDs, currentParent }] = queryKey;
-  const response = await axios.get(`/api/folder-service/move-folder-list`, {
+  const response = await axios.get(`/folder-service/move-folder-list`, {
     params: {
       parent,
       search,
@@ -128,7 +128,7 @@ export const restoreFolderAPI = async (folderID: string) => {
 };
 
 export const moveFolderAPI = async (folderID: string, parentID: string) => {
-  const response = await axios.patch(`/api/folder-service/move`, {
+  const response = await axios.patch(`/folder-service/move`, {
     id: folderID,
     parentID,
   });
