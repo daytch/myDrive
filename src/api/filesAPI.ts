@@ -52,14 +52,14 @@ export const getFilesListAPI = async ({
     queryParams.startAt = true;
   }
 
-  const response = await axios.get(`/file-service/list`, {
+  const response = await axios.get(`/api/file-service/list`, {
     params: queryParams,
   });
   return response.data;
 };
 
 export const getQuickFilesListAPI = async () => {
-  const response = await axios.get(`/file-service/quick-list`, {
+  const response = await axios.get(`/api/file-service/quick-list`, {
     params: {
       limit: 20,
     },
@@ -82,7 +82,7 @@ export const downloadFileAPI = async (fileID: string) => {
 
 export const getVideoTokenAPI = async () => {
   const response = await axios.get(
-    "/file-service/download/access-token-stream-video"
+    "/api/file-service/download/access-token-stream-video"
   );
   return response.data;
 };
@@ -93,7 +93,7 @@ export const getSuggestedListAPI = async ({
   [string, { searchText: string; trashMode: boolean; mediaMode: boolean }]
 >) => {
   const [_key, { searchText, trashMode, mediaMode }] = queryKey;
-  const response = await axios.get(`/file-service/suggested-list`, {
+  const response = await axios.get(`/api/file-service/suggested-list`, {
     params: {
       search: searchText,
       trashMode,
@@ -108,7 +108,7 @@ export const getPublicFileInfoAPI = async (
   tempToken: string
 ) => {
   const response = await axios.get(
-    `/file-service/public/info/${fileID}/${tempToken}`
+    `/api/file-service/public/info/${fileID}/${tempToken}`
   );
   return response.data;
 };
@@ -117,7 +117,7 @@ export const downloadPublicFileAPI = async (
   fileID: string,
   tempToken: string
 ) => {
-  const url = `${getBackendURL()}/file-service/public/download/${fileID}/${tempToken}`;
+  const url = `${getBackendURL()}/api/file-service/public/download/${fileID}/${tempToken}`;
 
   const link = document.createElement("a");
   document.body.appendChild(link);
@@ -130,35 +130,35 @@ export const downloadPublicFileAPI = async (
 // PATCH
 
 export const trashFileAPI = async (fileID: string) => {
-  const response = await axios.patch(`/file-service/trash`, {
+  const response = await axios.patch(`/api/file-service/trash`, {
     id: fileID,
   });
   return response.data;
 };
 
 export const trashMultiAPI = async (items: any) => {
-  const response = await axios.patch(`/file-service/trash-multi`, {
+  const response = await axios.patch(`/api/file-service/trash-multi`, {
     items,
   });
   return response.data;
 };
 
 export const restoreFileAPI = async (fileID: string) => {
-  const response = await axios.patch(`/file-service/restore`, {
+  const response = await axios.patch(`/api/file-service/restore`, {
     id: fileID,
   });
   return response.data;
 };
 
 export const restoreMultiAPI = async (items: any) => {
-  const response = await axios.patch(`/file-service/restore-multi`, {
+  const response = await axios.patch(`/api/file-service/restore-multi`, {
     items,
   });
   return response.data;
 };
 
 export const renameFileAPI = async (fileID: string, name: string) => {
-  const response = await axios.patch(`/file-service/rename`, {
+  const response = await axios.patch(`/api/file-service/rename`, {
     id: fileID,
     title: name,
   });
@@ -166,22 +166,22 @@ export const renameFileAPI = async (fileID: string, name: string) => {
 };
 
 export const makePublicAPI = async (fileID: string) => {
-  const response = await axios.patch(`/file-service/make-public/${fileID}`);
+  const response = await axios.patch(`/api/file-service/make-public/${fileID}`);
   return response.data;
 };
 
 export const makeOneTimePublicAPI = async (fileID: string) => {
-  const response = await axios.patch(`/file-service/make-one/${fileID}`);
+  const response = await axios.patch(`/api/file-service/make-one/${fileID}`);
   return response.data;
 };
 
 export const removeLinkAPI = async (fileID: string) => {
-  const response = await axios.patch(`/file-service/remove-link/${fileID}`);
+  const response = await axios.patch(`/api/file-service/remove-link/${fileID}`);
   return response.data;
 };
 
 export const moveFileAPI = async (fileID: string, parentID: string) => {
-  const response = await axios.patch(`/file-service/move`, {
+  const response = await axios.patch(`/api/file-service/move`, {
     id: fileID,
     parentID,
   });
@@ -189,7 +189,7 @@ export const moveFileAPI = async (fileID: string, parentID: string) => {
 };
 
 export const moveMultiAPI = async (items: any, parentID: string) => {
-  const response = await axios.patch(`/file-service/move-multi`, {
+  const response = await axios.patch(`/api/file-service/move-multi`, {
     items,
     parentID,
   });
@@ -199,7 +199,7 @@ export const moveMultiAPI = async (items: any, parentID: string) => {
 // DELETE
 
 export const deleteFileAPI = async (fileID: string) => {
-  const response = await axios.delete(`/file-service/remove`, {
+  const response = await axios.delete(`/api/file-service/remove`, {
     data: {
       id: fileID,
     },
@@ -208,7 +208,7 @@ export const deleteFileAPI = async (fileID: string) => {
 };
 
 export const deleteMultiAPI = async (items: any) => {
-  const response = await axios.delete(`/file-service/remove-multi`, {
+  const response = await axios.delete(`/api/file-service/remove-multi`, {
     data: {
       items,
     },
