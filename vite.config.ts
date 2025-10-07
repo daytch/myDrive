@@ -6,7 +6,7 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, "./src/config/");
 
-  const proxyURL = env.VITE_PROXY_URL || "http://localhost:3000";
+  const proxyURL = env.VITE_PROXY_URL || "http://localhost:7001";
 
   console.log(`\nBackend Development Proxy URL: ${proxyURL}/api\n`);
 
